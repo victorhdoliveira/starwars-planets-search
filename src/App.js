@@ -1,9 +1,10 @@
 import React from 'react';
 import './App.css';
+import Planets from './page/starWarsPlanets';
 
 function App() {
   return (
-    <span>Hello, App!</span>
+    <Planets />
   );
 }
 
