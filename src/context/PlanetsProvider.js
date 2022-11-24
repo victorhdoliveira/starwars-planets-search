@@ -1,20 +1,29 @@
 import PropTypes from 'prop-types';
 import { useEffect, useMemo, useState } from 'react';
-import requestAPI from '../services/requestAPI';
 import PlanetsContext from './PlanetsContext';
 
 export default function PlanetsProvider({ children }) {
   const [data, setData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [filterPlanet, setFilterPlanet] = useState([]);
 
-  const fetch = async () => {
-    setData(await requestAPI());
+  const fetchApi = async () => {
+    const response = await fetch('https://swapi.dev/api/planets');
+    const planetsData = await response.json();
+    planetsData.results.forEach((planet) => delete planet.residents);
+    setData(planetsData);
+    setFilterPlanet(planetsData.results);
+    setIsLoading(false);
   };
 
   useEffect(() => {
-    fetch();
+    fetchApi();
   }, []);
 
-  const value = useMemo(() => ({ data }), [data]);
+  const value = useMemo(
+    () => ({ data, isLoading, filterPlanet, setFilterPlanet }),
+    [data, isLoading, filterPlanet, setFilterPlanet],
+  );
 
   return (
     <PlanetsContext.Provider value={ value }>
