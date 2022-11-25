@@ -1,6 +1,9 @@
 import { useContext, useEffect, useState } from 'react';
 import PlanetContext from '../context/PlanetsContext';
 
+const fullColumnOptions = ['population', 'orbital_period',
+  'diameter', 'rotation_period', 'surface_water'];
+
 export default function Table() {
   const { data: { results }, isLoading,
     filterPlanet, setFilterPlanet } = useContext(PlanetContext);
@@ -9,6 +12,7 @@ export default function Table() {
   const [filterColumn, setFilterColumn] = useState('population');
   const [operator, setOperator] = useState('maior que');
   const [valueFilter, setValueFilter] = useState(0);
+  const [columnOptions, setColumnOptions] = useState(fullColumnOptions);
 
   useEffect(() => {
     if (!isLoading) {
@@ -36,6 +40,8 @@ export default function Table() {
       valueFilter,
     };
     setNumericFilters([...numericFilters, chosenFilter]);
+    setColumnOptions(columnOptions.filter((opt) => opt !== filterColumn));
+    setFilterColumn(columnOptions[0]);
   };
 
   return (
@@ -59,11 +65,13 @@ export default function Table() {
                 data-testid="column-filter"
                 onChange={ ({ target }) => setFilterColumn(target.value) }
               >
-                <option>population</option>
+                {columnOptions
+                  .map((options) => <option key={ options }>{options}</option>)}
+                {/* <option>population</option>
                 <option>orbital_period</option>
                 <option>diameter</option>
                 <option>rotation_period</option>
-                <option>surface_water</option>
+                <option>surface_water</option> */}
               </select>
             </label>
             <label htmlFor="Operador">
