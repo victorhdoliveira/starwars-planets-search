@@ -6,6 +6,7 @@ export default function PlanetsProvider({ children }) {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [filterPlanet, setFilterPlanet] = useState([]);
+  const [filterReset, setFilterReset] = useState([]);
 
   const fetchApi = async () => {
     const response = await fetch('https://swapi.dev/api/planets');
@@ -13,6 +14,7 @@ export default function PlanetsProvider({ children }) {
     planetsData.results.forEach((planet) => delete planet.residents);
     setData(planetsData);
     setFilterPlanet(planetsData.results);
+    setFilterReset(planetsData.results);
     setIsLoading(false);
   };
 
@@ -21,8 +23,8 @@ export default function PlanetsProvider({ children }) {
   }, []);
 
   const value = useMemo(
-    () => ({ data, isLoading, filterPlanet, setFilterPlanet }),
-    [data, isLoading, filterPlanet, setFilterPlanet],
+    () => ({ data, isLoading, filterPlanet, setFilterPlanet, filterReset }),
+    [data, isLoading, filterPlanet, setFilterPlanet, filterReset],
   );
 
   return (

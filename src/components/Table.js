@@ -6,13 +6,15 @@ const fullColumnOptions = ['population', 'orbital_period',
 
 export default function Table() {
   const { data: { results }, isLoading,
-    filterPlanet, setFilterPlanet } = useContext(PlanetContext);
+    filterPlanet, setFilterPlanet, filterReset } = useContext(PlanetContext);
   const [search, setSearch] = useState('');
   const [numericFilters, setNumericFilters] = useState([]);
   const [filterColumn, setFilterColumn] = useState('population');
   const [operator, setOperator] = useState('maior que');
   const [valueFilter, setValueFilter] = useState(0);
   const [columnOptions, setColumnOptions] = useState(fullColumnOptions);
+  const [previousOptions, setpreviousOptions] = useState('');
+  const [reset, setReset] = useState(false);
 
   useEffect(() => {
     if (!isLoading) {
@@ -39,9 +41,22 @@ export default function Table() {
       operator,
       valueFilter,
     };
+    setpreviousOptions(filterColumn);
     setNumericFilters([...numericFilters, chosenFilter]);
     setColumnOptions(columnOptions.filter((opt) => opt !== filterColumn));
     setFilterColumn(columnOptions[0]);
+  };
+
+  const removeFilter = (index, target) => {
+    setNumericFilters(numericFilters.filter((_, i) => i !== index));
+    const addOption = target.value;
+    setColumnOptions(columnOptions.concat(addOption));
+  };
+
+  const removeAllFilters = () => {
+    setFilterPlanet(filterReset);
+    setColumnOptions(fullColumnOptions);
+    setReset(true);
   };
 
   return (
@@ -67,11 +82,6 @@ export default function Table() {
               >
                 {columnOptions
                   .map((options) => <option key={ options }>{options}</option>)}
-                {/* <option>population</option>
-                <option>orbital_period</option>
-                <option>diameter</option>
-                <option>rotation_period</option>
-                <option>surface_water</option> */}
               </select>
             </label>
             <label htmlFor="Operador">
@@ -100,15 +110,34 @@ export default function Table() {
               Filtrar
             </button>
           </form>
-          {numericFilters.map(
-            (filter, index) => (
-              <p
-                key={ `${filter.filterColumn}-${index}` }
-              >
-                {`${filter.filterColumn} ${filter.operator} ${filter.valueFilter}`}
-              </p>
-            ),
-          )}
+          { !reset ? (
+            <div>
+              {numericFilters.map(
+                (filter, index) => (
+                  <p
+                    data-testid="filter"
+                    key={ `${filter.filterColumn}-${index}` }
+                  >
+                    {`${filter.filterColumn} ${filter.operator} ${filter.valueFilter}`}
+                    <button
+                      type="button"
+                      value={ previousOptions }
+                      onClick={ ({ target }) => removeFilter(index, target) }
+                    >
+                      X
+                    </button>
+                  </p>
+                ),
+              )}
+            </div>
+          ) : ('')}
+          <button
+            type="button"
+            data-testid="button-remove-filters"
+            onClick={ removeAllFilters }
+          >
+            Remover Filtros
+          </button>
           <table>
             <thead>
               <tr>
