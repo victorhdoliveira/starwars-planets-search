@@ -65,14 +65,13 @@ export default function Table() {
 
   const order = () => {
     setIsOrder(true);
-    const numbers = filterPlanet.filter((e) => (e[orderColumn] !== 'unknown'));
-    const unknowns = filterPlanet.filter((e) => (e[orderColumn].includes('unknown')));
-    console.log(numbers);
+    const knownsData = filterPlanet.filter((e) => (e[orderColumn] !== 'unknown'));
+    const unknowns = filterPlanet.filter((e) => (e[orderColumn] === 'unknown'));
     if (ascOrDesc === 'ASC') {
-      const asc = numbers.sort((a, b) => a[orderColumn] - b[orderColumn]);
+      const asc = knownsData.sort((a, b) => a[orderColumn] - b[orderColumn]);
       setPlanetOrder(asc.concat(unknowns));
     } else if (ascOrDesc === 'DESC') {
-      const desc = numbers.sort((a, b) => b[orderColumn] - a[orderColumn]);
+      const desc = knownsData.sort((a, b) => b[orderColumn] - a[orderColumn]);
       setPlanetOrder(desc.concat(unknowns));
     }
   };
@@ -157,7 +156,6 @@ export default function Table() {
             <button
               type="button"
               data-testid="column-sort-button"
-              // onClick={ () => setIsOrder(true) }
               onClick={ order }
             >
               Ordenar
