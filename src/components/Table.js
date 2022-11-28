@@ -15,6 +15,10 @@ export default function Table() {
   const [columnOptions, setColumnOptions] = useState(fullColumnOptions);
   const [previousOptions, setpreviousOptions] = useState('');
   const [reset, setReset] = useState(false);
+  const [ascOrDesc, setAscOrDes] = useState('');
+  const [orderColumn, setOrderColum] = useState('population');
+  const [isOrder, setIsOrder] = useState(false);
+  const [planetOrder, setPlanetOrder] = useState([]);
 
   useEffect(() => {
     if (!isLoading) {
@@ -57,6 +61,20 @@ export default function Table() {
     setFilterPlanet(filterReset);
     setColumnOptions(fullColumnOptions);
     setReset(true);
+  };
+
+  const order = () => {
+    setIsOrder(true);
+    const numbers = filterPlanet.filter((e) => (e[orderColumn] !== 'unknown'));
+    const unknowns = filterPlanet.filter((e) => (e[orderColumn].includes('unknown')));
+    console.log(numbers);
+    if (ascOrDesc === 'ASC') {
+      const asc = numbers.sort((a, b) => a[orderColumn] - b[orderColumn]);
+      setPlanetOrder(asc.concat(unknowns));
+    } else if (ascOrDesc === 'DESC') {
+      const desc = numbers.sort((a, b) => b[orderColumn] - a[orderColumn]);
+      setPlanetOrder(desc.concat(unknowns));
+    }
   };
 
   return (
@@ -109,6 +127,41 @@ export default function Table() {
             >
               Filtrar
             </button>
+            <label htmlFor="Ordenar">
+              Ordenar por:
+              <select
+                data-testid="column-sort"
+                value={ orderColumn }
+                onChange={ ({ target }) => setOrderColum(target.value) }
+              >
+                {fullColumnOptions
+                  .map((options) => <option key={ options }>{options}</option>)}
+              </select>
+              <input
+                type="radio"
+                data-testid="column-sort-input-asc"
+                value="ASC"
+                name="order"
+                onChange={ ({ target }) => setAscOrDes(target.value) }
+              />
+              Ascendente
+              <input
+                type="radio"
+                data-testid="column-sort-input-desc"
+                value="DESC"
+                name="order"
+                onChange={ ({ target }) => setAscOrDes(target.value) }
+              />
+              Decrescente
+            </label>
+            <button
+              type="button"
+              data-testid="column-sort-button"
+              // onClick={ () => setIsOrder(true) }
+              onClick={ order }
+            >
+              Ordenar
+            </button>
           </form>
           { !reset ? (
             <div>
@@ -157,9 +210,9 @@ export default function Table() {
               </tr>
             </thead>
             <tbody>
-              {filterPlanet.map((result, index) => (
+              {(isOrder ? (planetOrder) : (filterPlanet)).map((result, index) => (
                 <tr key={ index }>
-                  <td>{result.name}</td>
+                  <td data-testid="planet-name">{result.name}</td>
                   <td>{result.rotation_period}</td>
                   <td>{result.orbital_period}</td>
                   <td>{result.diameter}</td>
