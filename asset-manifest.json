@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/starwars-planets-search/static/css/main.b7aa69d8.css",
+    "main.js": "/starwars-planets-search/static/js/main.49a38f42.js",
+    "index.html": "/starwars-planets-search/index.html",
+    "main.b7aa69d8.css.map": "/starwars-planets-search/static/css/main.b7aa69d8.css.map",
+    "main.49a38f42.js.map": "/starwars-planets-search/static/js/main.49a38f42.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.b7aa69d8.css",
+    "static/js/main.49a38f42.js"
+  ]
+}
