@@ -1,41 +1,12 @@
-.App {
-  text-align: center;
+body {
+  background-image: url('https://images2.alphacoders.com/671/671306.jpg');
+  color: whitesmoke;
+  margin: 0;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media ( prefers-reduced-motion : no-preference ) {
-
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  align-items: center;
-  background-color: #282c34;
-  color: white;
+.starWarsLogo {
   display: flex;
-  flex-direction: column;
-  font-size: calc(10px + 2vmin);
+  height: 162px;
   justify-content: center;
-  min-height: 100vh;
-}
-
-.App-link {
-  color: #61dafbd8;
-}
-
-@keyframes App-logo-spin {
-
-  from {
-    transform: rotate(0deg);
-  }
-
-  to {
-    transform: rotate(360deg);
-  }
+  width: 269px;
 }
