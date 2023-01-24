@@ -1,13 +1,30 @@
-# :construction: README customizado em construção ! :construction:
-<!-- Olá, Tryber!
-Esse é apenas um arquivo inicial para o README do seu projeto no qual você pode customizar e reutilizar todas as vezes que for executar o trybe-publisher.
+<h1 align=center> Projeto Star Wars Planets Search </h1>
 
-Para deixá-lo com a sua cara, basta alterar o seguinte arquivo da sua máquina: ~/.student-repo-publisher/custom/_NEW_README.md
+<p>Deploy:
+  <a href="https://victorhdoliveira.github.io/starwars-planets-search/" target="_blank">
+   Star Wars Planets Search
+  </a>
+</p>
 
-É essencial que você preencha esse documento por conta própria, ok?
-Não deixe de usar nossas dicas de escrita de README de projetos, e deixe sua criatividade brilhar!
-:warning: IMPORTANTE: você precisa deixar nítido:
-- quais arquivos/pastas foram desenvolvidos por você; 
-- quais arquivos/pastas foram desenvolvidos por outra pessoa estudante;
-- quais arquivos/pastas foram desenvolvidos pela Trybe.
--->
+Data de entrega: 28/11/2022
+
+<h3>Descrição:</h3>
+O objetivo do projeto desenvolver de diversos filtros do universo de Star Wars utilizando Context API e Hooks para controlar os estados globais.
+
+![gif](https://media.giphy.com/media/l7YlF5sIMgOlmjWznb/giphy.gif)
+
+<h3>Habilidades desenvolvidas:</h3>
+
+<ul>
+   <li>Context API do React</li>
+   <li>React Hook useState</li>
+   <li>React Hook useContext</li>
+   <li>React Hook useEffect</li>
+   <li>React Testing Library</li>
+</ul>
+
+
+ <a href="https://www.linkedin.com/in/victorhdoliveira/" target ="_blank">
+   <img alt="LinkedIn Logo" src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" />
+ </a>
+
